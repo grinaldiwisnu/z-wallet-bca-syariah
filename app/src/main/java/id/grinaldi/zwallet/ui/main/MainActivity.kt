@@ -1,4 +1,4 @@
-package id.grinaldi.zwallet.ui
+package id.grinaldi.zwallet.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
