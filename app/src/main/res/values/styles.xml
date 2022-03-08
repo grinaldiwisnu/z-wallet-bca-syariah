@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextView">
+
+    </style>
+
+    <style name="TextView.SplashScreen">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextView.SplashScreen.Description">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextView.MainActivity">
+    </style>
+
+    <style name="TextView.MainActivity.ViewAll">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primaryColor</item>
+    </style>
+
+    <style name="RoundCornerOverlay">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+</resources>
