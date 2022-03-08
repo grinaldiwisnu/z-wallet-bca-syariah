@@ -7,19 +7,22 @@ import androidx.recyclerview.widget.RecyclerView
 import id.grinaldi.zwallet.R
 import id.grinaldi.zwallet.adapter.TransactionAdapter
 import id.grinaldi.zwallet.data.Transaction
+import id.grinaldi.zwallet.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val transactionData = mutableListOf<Transaction>()
     private lateinit var transactionAdapter: TransactionAdapter
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         this.transactionAdapter = TransactionAdapter(transactionData)
-        val recycler: RecyclerView = findViewById(R.id.recyclerTransaction)
         val layoutManager = LinearLayoutManager(applicationContext)
-        recycler.layoutManager = layoutManager
-        recycler.adapter = transactionAdapter
+        binding.recyclerTransaction.layoutManager = layoutManager
+        binding.recyclerTransaction.adapter = transactionAdapter
         prepareData()
     }
 

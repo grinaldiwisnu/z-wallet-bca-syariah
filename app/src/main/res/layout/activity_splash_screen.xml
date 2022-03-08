@@ -30,7 +30,7 @@
             android:id="@+id/helloWorldDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Make easy your payment"
+            android:text="@string/slogans"
             style="@style/TextView.SplashScreen.Description"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

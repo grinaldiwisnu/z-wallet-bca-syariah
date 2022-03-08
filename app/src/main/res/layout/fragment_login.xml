@@ -112,6 +112,8 @@
             android:paddingHorizontal="24dp"
             android:layout_margin="16dp"
             android:textColor="#88888F"
+            style="@style/TextView.Medium"
+            android:textAllCaps="false"
             android:background="@drawable/background_button_auth"
             app:layout_constraintTop_toBottomOf="@id/textForgotPassword"
             app:layout_constraintStart_toStartOf="parent"

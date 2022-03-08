@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="text_login">Login</string>
-    <string name="text_login_desc">Login to your existing account to access all the features in Zwallet.</string>
-    <string name="hint_email">Enter your email address</string>
-</resources>
