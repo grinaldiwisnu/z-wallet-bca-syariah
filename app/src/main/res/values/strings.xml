@@ -22,4 +22,10 @@
     <string name="hint_name">Enter your username</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="let_s_login">Let’s Login</string>
+    <string name="text_phone">+62 8523 3002 6622</string>
+    <string name="text_balance">Rp120.000</string>
+    <string name="text_balance_label">Balance</string>
+    <string name="notification_image">Notification Image</string>
+    <string name="text_name">Grinaldi Wisnu Tri Prasetyo</string>
+    <string name="text_hello">Hello,</string>
 </resources>
