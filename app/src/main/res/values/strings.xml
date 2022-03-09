@@ -10,4 +10,16 @@
     <string name="slogans">Make easy your payment</string>
     <string name="dont_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up!</string>
+    <string name="text_reset_password">Reset Password</string>
+    <string name="text_forgot_password_desc">Enter your Zwallet e-mail so we can send you a password reset link.</string>
+    <string name="confirm">Confirm</string>
+    <string name="text_new_password_desc">Create and confirm your new password so you can login to Zwallet.</string>
+    <string name="hint_create_new_password">Create new password</string>
+    <string name="hint_confirm_new_password">Confirm new password</string>
+    <string name="text_change_password">Change Password</string>
+    <string name="text_sign_up">Sign Up</string>
+    <string name="text_sign_up_desc">Create your account to access Zwallet.</string>
+    <string name="hint_name">Enter your username</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="let_s_login">Let’s Login</string>
 </resources>

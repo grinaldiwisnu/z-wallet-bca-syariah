@@ -51,5 +51,9 @@ class LoginFragment : Fragment() {
         binding.textSignUp.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.loginActionRegister)
         }
+
+        binding.textForgotPassword.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+        }
     }
 }
