@@ -9,10 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.Navigation
 import id.grinaldi.zwallet.R
 import id.grinaldi.zwallet.databinding.FragmentLoginBinding
 import id.grinaldi.zwallet.ui.main.MainActivity
@@ -36,15 +34,22 @@ class LoginFragment : Fragment() {
             if (binding.inputPassword.text.length > 8) {
                 binding.btnLogin.setBackgroundResource(R.drawable.background_button_auth_active)
                 binding.btnLogin.setTextColor(Color.parseColor("#FFFFFF"))
+            } else if (binding.inputPassword.text.length <= 8) {
+                binding.btnLogin.setBackgroundResource(R.drawable.background_button_auth)
+                binding.btnLogin.setTextColor(Color.parseColor("#9DA6B5"))
             }
         }
 
         binding.btnLogin.setOnClickListener {
-            Toast.makeText(context, "${binding.inputEmail.text} / ${binding.inputPassword.text}", Toast.LENGTH_SHORT).show()
+
             Handler().postDelayed({
                 val intent = Intent(activity, MainActivity::class.java)
                 startActivity(intent)
             }, 2000)
+        }
+
+        binding.textSignUp.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.loginActionRegister)
         }
     }
 }

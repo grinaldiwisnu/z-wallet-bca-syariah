@@ -8,4 +8,6 @@
     <string name="hint_password">Enter your password</string>
     <string name="text_forgot_password">Forgot password?</string>
     <string name="slogans">Make easy your payment</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up!</string>
 </resources>

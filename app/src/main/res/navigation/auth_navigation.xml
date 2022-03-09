@@ -2,12 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/fragmentLogin"
-    android:id="@+id/auth_navigation">
-    <fragment
-        tools:layout="@layout/fragment_login"
-        android:name="id.grinaldi.zwallet.ui.auth.LoginFragment"
-        android:id="@+id/fragmentLogin">
+    android:id="@+id/auth_navigation"
+    app:startDestination="@id/loginFragment">
 
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="id.grinaldi.zwallet.ui.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/loginActionRegister"
+            app:destination="@id/registerFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="id.grinaldi.zwallet.ui.auth.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/registerActionLogin"
+            app:destination="@id/loginFragment"/>
     </fragment>
 </navigation>
