@@ -38,6 +38,7 @@
                 style="@style/TextView"
                 android:textSize="12sp" />
             <TextView
+                android:id="@+id/textUserName"
                 style="@style/TextView.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,6 +81,7 @@
             style="@style/TextView.Bold"
             android:textSize="24sp" />
         <TextView
+            android:id="@+id/textUserPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/greyColor"

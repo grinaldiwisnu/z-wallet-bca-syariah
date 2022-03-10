@@ -9,7 +9,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
         android:background="@color/backgroundColor">
 
         <TextView
@@ -137,7 +136,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="70dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginBottom="20dp"
                 android:text="@string/already_have_an_account"
                 android:textColor="@color/darkGreyColor"
                 app:layout_constraintEnd_toStartOf="@id/textSignIn"
@@ -150,7 +148,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginEnd="70dp"
                 android:text="@string/let_s_login"
                 android:textColor="@color/primaryColor"
