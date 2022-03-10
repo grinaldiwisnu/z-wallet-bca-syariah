@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.Navigation
 import id.grinaldi.zwallet.R
+import id.grinaldi.zwallet.data.api.ZWalletApi
 import id.grinaldi.zwallet.databinding.FragmentLoginBinding
 import id.grinaldi.zwallet.model.APIResponse
 import id.grinaldi.zwallet.model.User
@@ -22,22 +23,21 @@ import id.grinaldi.zwallet.model.request.LoginRequest
 import id.grinaldi.zwallet.network.NetworkConfig
 import id.grinaldi.zwallet.ui.main.MainActivity
 import id.grinaldi.zwallet.utils.*
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.HTTP
 import javax.net.ssl.HttpsURLConnection
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var prefs: SharedPreferences
+    private lateinit var apiClient: ZWalletApi
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        apiClient = NetworkConfig(context).buildApi()
         binding = FragmentLoginBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -68,7 +68,7 @@ class LoginFragment : Fragment() {
                 binding.inputPassword.text.toString()
             )
 
-            NetworkConfig(context).getService().login(loginRequest)
+            apiClient.login(loginRequest)
                 .enqueue(object : Callback<APIResponse<User>> {
                     override fun onResponse(
                         call: Call<APIResponse<User>>,

@@ -2,7 +2,6 @@ package id.grinaldi.zwallet.ui.main
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -11,37 +10,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import android.window.SplashScreen
-import androidx.core.content.res.ResourcesCompat.getDrawable
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import id.grinaldi.zwallet.R
 import id.grinaldi.zwallet.adapter.TransactionAdapter
-import id.grinaldi.zwallet.data.Transaction
-import id.grinaldi.zwallet.databinding.ActivityMainBinding
+import id.grinaldi.zwallet.data.api.ZWalletApi
 import id.grinaldi.zwallet.databinding.FragmentHomeBinding
 import id.grinaldi.zwallet.model.APIResponse
-import id.grinaldi.zwallet.model.User
+import id.grinaldi.zwallet.model.Invoice
 import id.grinaldi.zwallet.model.UserDetail
 import id.grinaldi.zwallet.network.NetworkConfig
 import id.grinaldi.zwallet.ui.SplashScreenActivity
+import id.grinaldi.zwallet.utils.Helper.formatPrice
 import id.grinaldi.zwallet.utils.KEY_LOGGED_IN
 import id.grinaldi.zwallet.utils.PREFS_NAME
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import javax.net.ssl.HttpsURLConnection
 
 class HomeFragment : Fragment() {
-    private val transactionData = mutableListOf<Transaction>()
+    private val invoices = mutableListOf<Invoice>()
     private lateinit var transactionAdapter: TransactionAdapter
     private lateinit var binding: FragmentHomeBinding
     private lateinit var prefs: SharedPreferences
+    private lateinit var apiClient: ZWalletApi
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        apiClient = NetworkConfig(context).buildApi()
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -51,30 +49,19 @@ class HomeFragment : Fragment() {
 
         prefs = context?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)!!
 
-        NetworkConfig(context).getService().getUserDetail().enqueue(object:
-            Callback<APIResponse<UserDetail>>  {
-            override fun onResponse(
-                call: Call<APIResponse<UserDetail>>,
-                response: Response<APIResponse<UserDetail>>
-            ) {
-                if (response.body()?.status != HttpsURLConnection.HTTP_OK) {
-                    Toast.makeText(context, "Fetch detail data failed", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    val res = response.body()?.data
-                    binding.textUserName.text = "${res?.firstname} ${res?.lastname}"
-                    binding.textUserPhone.text = "${res?.phone}"
-                }
-            }
-
-            override fun onFailure(call: Call<APIResponse<UserDetail>>, t: Throwable) {
+        val userBalance = apiClient.getBalance().execute()
+        if (userBalance.isSuccessful)
+            if (userBalance.body()?.status != HttpsURLConnection.HTTP_OK) {
                 Toast.makeText(context, "Fetch detail data failed", Toast.LENGTH_SHORT)
                     .show()
+            } else {
+                val res = userBalance.body()?.data?.get(0)
+                binding.textUserName.text = res?.name
+                binding.textUserPhone.text = res?.phone
+                binding.textUserBalance.formatPrice(res?.balance.toString())
             }
 
-        })
-
-        this.transactionAdapter = TransactionAdapter(transactionData)
+        this.transactionAdapter = TransactionAdapter(invoices)
         val layoutManager = LinearLayoutManager(context)
         binding.recyclerTransaction.layoutManager = layoutManager
         binding.recyclerTransaction.adapter = transactionAdapter
@@ -103,14 +90,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun prepareData() {
-        this.transactionData.add(Transaction(
-            transactionImage = activity?.getDrawable(R.drawable.avatar)!!,
-            transactionName = "Grinaldi Wisnu",
-            transactionNominal = 125000.00,
-            transactionType = "Transfer"
-        ))
-
-        this.transactionAdapter.notifyDataSetChanged()
-
+        val dataInvoice = apiClient.getInvoice().execute()
+        if (dataInvoice.isSuccessful)
+            if (dataInvoice.body()?.status != HttpsURLConnection.HTTP_OK) {
+                Toast.makeText(context, "Fetch invoices data failed", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                invoices.addAll(dataInvoice.body()!!.data)
+                transactionAdapter.notifyDataSetChanged()
+            }
     }
 }
