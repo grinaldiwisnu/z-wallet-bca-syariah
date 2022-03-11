@@ -15,7 +15,7 @@ import id.grinaldi.zwallet.utils.BASE_URL
 import id.grinaldi.zwallet.utils.Helper.formatPrice
 
 class TransactionAdapter(private var data: List<Invoice>): RecyclerView.Adapter<TransactionAdapter.TransactionAdapterHolder>() {
-    lateinit var contextAdapter: Context
+    private lateinit var contextAdapter: Context
 
     class TransactionAdapterHolder(view: View): RecyclerView.ViewHolder(view) {
         private val image: ShapeableImageView = view.findViewById(R.id.imageTransaction)
@@ -51,5 +51,9 @@ class TransactionAdapter(private var data: List<Invoice>): RecyclerView.Adapter<
 
     override fun getItemCount(): Int {
         return this.data.size
+    }
+
+    fun addData(data: List<Invoice>) {
+        this.data = data
     }
 }

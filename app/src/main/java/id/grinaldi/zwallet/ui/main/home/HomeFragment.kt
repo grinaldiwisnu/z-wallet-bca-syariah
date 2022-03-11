@@ -1,4 +1,4 @@
-package id.grinaldi.zwallet.ui.main
+package id.grinaldi.zwallet.ui.main.home
 
 import android.app.AlertDialog
 import android.content.Context
@@ -19,27 +19,26 @@ import id.grinaldi.zwallet.model.Invoice
 import id.grinaldi.zwallet.model.UserDetail
 import id.grinaldi.zwallet.network.NetworkConfig
 import id.grinaldi.zwallet.ui.SplashScreenActivity
+import id.grinaldi.zwallet.ui.viewModelsFactory
 import id.grinaldi.zwallet.utils.Helper.formatPrice
 import id.grinaldi.zwallet.utils.KEY_LOGGED_IN
 import id.grinaldi.zwallet.utils.PREFS_NAME
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
+import java.lang.Exception
 import javax.net.ssl.HttpsURLConnection
 
 class HomeFragment : Fragment() {
-    private val invoices = mutableListOf<Invoice>()
     private lateinit var transactionAdapter: TransactionAdapter
     private lateinit var binding: FragmentHomeBinding
     private lateinit var prefs: SharedPreferences
-    private lateinit var apiClient: ZWalletApi
+    private val viewModel: HomeViewModel by viewModelsFactory { HomeViewModel(requireActivity().application) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        apiClient = NetworkConfig(context).buildApi()
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -49,22 +48,6 @@ class HomeFragment : Fragment() {
 
         prefs = context?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)!!
 
-        val userBalance = apiClient.getBalance().execute()
-        if (userBalance.isSuccessful)
-            if (userBalance.body()?.status != HttpsURLConnection.HTTP_OK) {
-                Toast.makeText(context, "Fetch detail data failed", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                val res = userBalance.body()?.data?.get(0)
-                binding.textUserName.text = res?.name
-                binding.textUserPhone.text = res?.phone
-                binding.textUserBalance.formatPrice(res?.balance.toString())
-            }
-
-        this.transactionAdapter = TransactionAdapter(invoices)
-        val layoutManager = LinearLayoutManager(context)
-        binding.recyclerTransaction.layoutManager = layoutManager
-        binding.recyclerTransaction.adapter = transactionAdapter
         prepareData()
 
         binding.profileImage.setOnClickListener {
@@ -90,14 +73,35 @@ class HomeFragment : Fragment() {
     }
 
     private fun prepareData() {
-        val dataInvoice = apiClient.getInvoice().execute()
-        if (dataInvoice.isSuccessful)
-            if (dataInvoice.body()?.status != HttpsURLConnection.HTTP_OK) {
-                Toast.makeText(context, "Fetch invoices data failed", Toast.LENGTH_SHORT)
-                    .show()
+        this.transactionAdapter = TransactionAdapter(listOf())
+        binding.recyclerTransaction.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = transactionAdapter
+        }
+
+        viewModel.getBalance().observe(viewLifecycleOwner) {
+            if (it.status == HttpsURLConnection.HTTP_OK) {
+                binding.apply {
+                    textUserBalance.formatPrice(it.data?.get(0)?.balance.toString())
+                    textUserPhone.text = it.data?.get(0)?.phone
+                    textUserName.text = it.data?.get(0)?.name
+                }
             } else {
-                invoices.addAll(dataInvoice.body()!!.data)
-                transactionAdapter.notifyDataSetChanged()
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
+                    .show()
             }
+        }
+
+        viewModel.getInvoice().observe(viewLifecycleOwner) {
+            if (it.status == HttpsURLConnection.HTTP_OK) {
+                this.transactionAdapter.apply {
+                    addData(it.data!!)
+                    notifyDataSetChanged()
+                }
+            } else {
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
     }
 }

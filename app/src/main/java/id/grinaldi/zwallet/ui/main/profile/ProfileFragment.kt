@@ -1,4 +1,4 @@
-package id.grinaldi.zwallet.ui.main
+package id.grinaldi.zwallet.ui.main.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

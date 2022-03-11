@@ -13,16 +13,16 @@ import retrofit2.http.POST
 
 interface ZWalletApi {
     @POST("auth/login")
-    fun login(@Body request: LoginRequest): Call<APIResponse<User>>
+    suspend fun login(@Body request: LoginRequest): APIResponse<User>
 
     @GET("user/myProfile")
     fun getUserDetail(): Call<APIResponse<UserDetail>>
 
     @GET("home/getBalance")
-    fun getBalance(): Call<APIResponse<List<UserDetail>>>
+    suspend fun getBalance(): APIResponse<List<UserDetail>>
 
     @GET("home/getInvoice")
-    fun getInvoice(): Call<APIResponse<List<Invoice>>>
+    suspend fun getInvoice(): APIResponse<List<Invoice>>
 
     @POST("auth/refresh-token")
     fun refreshToken(@Body request: RefreshTokenRequest): Call<APIResponse<User>>

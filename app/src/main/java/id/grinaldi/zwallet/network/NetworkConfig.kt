@@ -41,7 +41,7 @@ class NetworkConfig(val context: Context?) {
 
     fun buildApi(): ZWalletApi {
         val authenticator = RefreshTokenInterceptor(context, getService(), preferences!!)
-        println("authenticator: ${authenticator.context}")
+
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(getInterceptor(authenticator))

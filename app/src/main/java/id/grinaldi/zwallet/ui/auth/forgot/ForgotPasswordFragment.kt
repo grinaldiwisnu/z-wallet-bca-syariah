@@ -1,4 +1,4 @@
-package id.grinaldi.zwallet.ui.auth
+package id.grinaldi.zwallet.ui.auth.forgot
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
