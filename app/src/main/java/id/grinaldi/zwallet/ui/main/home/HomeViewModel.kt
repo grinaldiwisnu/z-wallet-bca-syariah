@@ -9,16 +9,17 @@ import id.grinaldi.zwallet.model.APIResponse
 import id.grinaldi.zwallet.model.Invoice
 import id.grinaldi.zwallet.model.UserDetail
 import id.grinaldi.zwallet.network.NetworkConfig
+import id.grinaldi.zwallet.utils.Resource
 
 class HomeViewModel(app: Application): ViewModel() {
     private var apiClient: ZWalletApi = NetworkConfig(app).buildApi()
     private var dataSource = ZWalletDataSource(apiClient)
 
-    fun getInvoice(): LiveData<APIResponse<List<Invoice>>> {
+    fun getInvoice(): LiveData<Resource<APIResponse<List<Invoice>>?>> {
         return dataSource.getInvoice()
     }
 
-    fun getBalance(): LiveData<APIResponse<List<UserDetail>>> {
+    fun getBalance(): LiveData<Resource<APIResponse<List<UserDetail>>?>> {
         return dataSource.getBalance()
     }
 }

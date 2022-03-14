@@ -7,35 +7,39 @@ import id.grinaldi.zwallet.model.Invoice
 import id.grinaldi.zwallet.model.User
 import id.grinaldi.zwallet.model.UserDetail
 import id.grinaldi.zwallet.model.request.LoginRequest
+import id.grinaldi.zwallet.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 
 class ZWalletDataSource(private val apiClient: ZWalletApi) {
-    fun login(email: String, password: String) = liveData<APIResponse<User>>(Dispatchers.IO) {
+    fun login(email: String, password: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
         try {
             val loginRequest = LoginRequest(email = email, password = password)
             val response = apiClient.login(loginRequest)
-            emit(response)
+            emit(Resource.success(response))
         } catch (e: Exception) {
-            emit(APIResponse(400, e.localizedMessage, null))
+            emit(Resource.error(null, e.localizedMessage))
         }
     }
 
-    fun getInvoice() = liveData<APIResponse<List<Invoice>>>(Dispatchers.IO) {
+    fun getInvoice() = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
         try {
             val response = apiClient.getInvoice()
-            emit(response)
+            emit(Resource.success(response))
         } catch (e: Exception) {
-            emit(APIResponse(400, e.localizedMessage, null))
+            emit(Resource.error(null, e.localizedMessage))
         }
     }
 
-    fun getBalance() = liveData<APIResponse<List<UserDetail>>>(Dispatchers.IO) {
+    fun getBalance() = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
         try {
             val response = apiClient.getBalance()
-            emit(response)
+            emit(Resource.success(response))
         } catch (e: Exception) {
-            emit(APIResponse(400, e.localizedMessage, null))
+            emit(Resource.error(null, e.localizedMessage))
         }
     }
 }
