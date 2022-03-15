@@ -10,11 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import id.grinaldi.zwallet.R
 import id.grinaldi.zwallet.adapter.TransactionAdapter
 import id.grinaldi.zwallet.databinding.FragmentHomeBinding
 import id.grinaldi.zwallet.ui.SplashScreenActivity
-import id.grinaldi.zwallet.ui.viewModelsFactory
+import id.grinaldi.zwallet.ui.ViewModelFactory
+import id.grinaldi.zwallet.ui.transfer.TransferActivity
 import id.grinaldi.zwallet.utils.Helper.formatPrice
 import id.grinaldi.zwallet.utils.KEY_LOGGED_IN
 import id.grinaldi.zwallet.utils.PREFS_NAME
@@ -27,7 +31,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var prefs: SharedPreferences
     private lateinit var loadingDialog: LoadingDialog
-    private val viewModel: HomeViewModel by viewModelsFactory { HomeViewModel(requireActivity().application) }
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +39,10 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         loadingDialog = LoadingDialog(requireActivity())
+
+        viewModel = ViewModelProvider(this, ViewModelFactory
+            .getInstance(requireActivity().application))[HomeViewModel::class.java]
+
         return binding.root
     }
 
@@ -65,6 +73,14 @@ class HomeFragment : Fragment() {
                 }
                 .show()
         }
+
+        binding.buttonTransfer.setOnClickListener {
+            startActivity(Intent(context, TransferActivity::class.java))
+        }
+
+        binding.buttonTopUp.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_topUpFragment)
+        }
     }
 
     private fun prepareData() {
@@ -81,14 +97,14 @@ class HomeFragment : Fragment() {
                 }
                 State.SUCCESS -> {
                     loadingDialog.stop()
-                    if (it.data?.status == HttpsURLConnection.HTTP_OK) {
+                    if (it.resource?.status == HttpsURLConnection.HTTP_OK) {
                         binding.apply {
-                            textUserBalance.formatPrice(it.data.data?.get(0)?.balance.toString())
-                            textUserPhone.text = it.data.data?.get(0)?.phone
-                            textUserName.text = it.data.data?.get(0)?.name
+                            textUserBalance.formatPrice(it.resource.data?.get(0)?.balance.toString())
+                            textUserPhone.text = it.resource.data?.get(0)?.phone
+                            textUserName.text = it.resource.data?.get(0)?.name
                         }
                     } else {
-                        Toast.makeText(context, it.data?.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, it.resource?.message, Toast.LENGTH_SHORT).show()
                     }
                 }
                 State.ERROR -> {
@@ -111,17 +127,21 @@ class HomeFragment : Fragment() {
                         loadingIndicator.visibility = View.GONE
                         recyclerTransaction.visibility = View.VISIBLE
                     }
-                    if (it.data?.status == HttpsURLConnection.HTTP_OK) {
+                    if (it.resource?.status == HttpsURLConnection.HTTP_OK) {
                         this.transactionAdapter.apply {
-                            addData(it.data.data!!)
+                            addData(it.resource.data!!)
                             notifyDataSetChanged()
                         }
                     } else {
-                        Toast.makeText(context, it.data?.message, Toast.LENGTH_SHORT)
+                        Toast.makeText(context, it.resource?.message, Toast.LENGTH_SHORT)
                             .show()
                     }
                 }
-                else -> {
+                State.ERROR -> {
+                    binding.apply {
+                        loadingIndicator.visibility = View.GONE
+                        recyclerTransaction.visibility = View.VISIBLE
+                    }
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                         .show()
                 }

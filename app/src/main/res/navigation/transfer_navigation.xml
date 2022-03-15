@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/transfer_navigation"
+    app:startDestination="@id/selectContactFragment">
+
+    <fragment
+        android:id="@+id/selectContactFragment"
+        android:name="id.grinaldi.zwallet.ui.transfer.SelectContactFragment"
+        android:label="SelectContactFragment" >
+        <action
+            android:id="@+id/action_selectContactFragment_to_transferAmountFragment"
+            app:destination="@id/transferAmountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferAmountFragment"
+        android:name="id.grinaldi.zwallet.ui.transfer.TransferAmountFragment"
+        android:label="TransferAmountFragment" >
+        <action
+            android:id="@+id/action_transferAmountFragment_to_transferConfirmationFragment"
+            app:destination="@id/transferConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferConfirmationFragment"
+        android:name="id.grinaldi.zwallet.ui.transfer.TransferConfirmationFragment"
+        android:label="fragment_transfer_confirmation"
+        tools:layout="@layout/fragment_transfer_confirmation" />
+</navigation>

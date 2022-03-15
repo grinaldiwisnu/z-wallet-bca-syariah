@@ -7,6 +7,7 @@ import id.grinaldi.zwallet.model.request.RefreshTokenRequest
 import id.grinaldi.zwallet.utils.KEY_USER_EMAIL
 import id.grinaldi.zwallet.utils.KEY_USER_REFRESH_TOKEN
 import id.grinaldi.zwallet.utils.KEY_USER_TOKEN
+import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
@@ -43,7 +44,7 @@ class RefreshTokenInterceptor(
                 apply()
             }
 
-            response.data?.token
+            return response.data?.token
         }
     }
 }

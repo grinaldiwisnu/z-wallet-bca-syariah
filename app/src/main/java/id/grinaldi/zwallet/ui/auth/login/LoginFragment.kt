@@ -13,18 +13,19 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import id.grinaldi.zwallet.R
 import id.grinaldi.zwallet.databinding.FragmentLoginBinding
+import id.grinaldi.zwallet.ui.ViewModelFactory
 import id.grinaldi.zwallet.ui.main.MainActivity
-import id.grinaldi.zwallet.ui.viewModelsFactory
 import id.grinaldi.zwallet.utils.*
 import id.grinaldi.zwallet.widget.LoadingDialog
 import javax.net.ssl.HttpsURLConnection
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
-    private val viewModel: LoginViewModel by viewModelsFactory { LoginViewModel(requireActivity().application) }
+    private lateinit var viewModel: LoginViewModel
     private lateinit var preferences: SharedPreferences
     private lateinit var loadingDialog: LoadingDialog
 
@@ -35,6 +36,10 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         preferences = context?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)!!
         loadingDialog = LoadingDialog(requireActivity())
+
+        viewModel = ViewModelProvider(this, ViewModelFactory
+            .getInstance(requireActivity().application))[LoginViewModel::class.java]
+
         return binding.root
     }
 
@@ -65,9 +70,10 @@ class LoginFragment : Fragment() {
             response.observe(viewLifecycleOwner) {
                 when (it.state) {
                     State.LOADING -> {
-
+                        loadingDialog.start("Processing your request")
                     }
                     State.SUCCESS -> {
+                        loadingDialog.stop()
                         if (it.resource?.status == HttpsURLConnection.HTTP_OK) {
                             with (preferences.edit()) {
                                 putBoolean(KEY_LOGGED_IN, true)
@@ -77,17 +83,22 @@ class LoginFragment : Fragment() {
                                 apply()
                             }
 
-                            Handler().postDelayed({
-                                val intent = Intent(activity, MainActivity::class.java)
-                                startActivity(intent)
-                                activity?.finish()
-                            }, 1000)
+                            if (it.resource.data?.hasPin!!) {
+                                Handler().postDelayed({
+                                    val intent = Intent(activity, MainActivity::class.java)
+                                    startActivity(intent)
+                                    activity?.finish()
+                                }, 1000)
+                            } else {
+                                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_createPinFragment)
+                            }
                         } else {
                             Toast.makeText(context, it.resource?.message, Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }
                     State.ERROR -> {
+                        loadingDialog.stop()
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                             .show()
                     }

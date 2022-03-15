@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundColor"
+    tools:context=".ui.transfer.TransferConfirmationFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:background="@color/backgroundColor">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/layout_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/nunito_font_bold"
+            android:textSize="18sp"
+            android:layout_marginHorizontal="16dp"
+            android:textColor="@color/black"
+            android:text="@string/text_transfer_to"
+            android:id="@+id/textTransferTo"
+            app:layout_constraintTop_toBottomOf="@id/include"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <include
+            android:id="@+id/transferUserInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/item_contact_transfer"
+            android:layout_marginTop="20dp"
+            android:paddingTop="20dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTransferTo"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/nunito_font_bold"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="16dp"
+            android:textColor="@color/black"
+            android:text="@string/text_details"
+            android:id="@+id/textDetails"
+            app:layout_constraintTop_toBottomOf="@id/transferUserInfo"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <LinearLayout
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="10dp"
+            android:id="@+id/confirmationAmount"
+            app:layout_constraintTop_toBottomOf="@id/textDetails"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_item_transaction_home"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/amount"
+                android:fontFamily="@font/nunito_font"
+                android:textSize="16sp"
+                android:textColor="@color/darkGreyColor"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/valueAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_font_medium"
+                android:textStyle="bold"
+                android:text="Rp100.000"
+                android:textSize="22sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="10dp"
+            android:id="@+id/confirmationBalance"
+            app:layout_constraintTop_toBottomOf="@id/confirmationAmount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_item_transaction_home"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/balance"
+                android:fontFamily="@font/nunito_font"
+                android:textSize="16sp"
+                android:textColor="@color/darkGreyColor"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/valueBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_font_medium"
+                android:textStyle="bold"
+                android:text="Rp100.000"
+                android:textSize="22sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="10dp"
+            android:id="@+id/confirmationDate"
+            app:layout_constraintTop_toBottomOf="@id/confirmationBalance"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_item_transaction_home"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date"
+                android:fontFamily="@font/nunito_font"
+                android:textSize="16sp"
+                android:textColor="@color/darkGreyColor"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/valueDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_font_medium"
+                android:textStyle="bold"
+                android:text="10 Mar 2020, 12.20"
+                android:textSize="22sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="10dp"
+            android:id="@+id/confirmationNotes"
+            app:layout_constraintTop_toBottomOf="@id/confirmationDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_item_transaction_home"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notes"
+                android:fontFamily="@font/nunito_font"
+                android:textSize="16sp"
+                android:textColor="@color/darkGreyColor"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/valueNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_font_medium"
+                android:textStyle="bold"
+                android:text="Rp100.000"
+                android:textSize="22sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_continue_to_new_pin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/confirmationNotes"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingVertical="12dp"
+            android:background="@drawable/background_button_auth_active"
+            android:textAllCaps="false"
+            android:text="@string/text_continue"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="20dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:fontFamily="@font/nunito_font_medium"
+            android:layout_marginVertical="50dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

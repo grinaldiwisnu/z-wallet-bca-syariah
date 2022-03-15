@@ -42,4 +42,14 @@ class ZWalletDataSource(private val apiClient: ZWalletApi) {
             emit(Resource.error(null, e.localizedMessage))
         }
     }
+
+    fun getContact() = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val response = apiClient.getContacts()
+            emit(Resource.success(response))
+        } catch (e: Exception) {
+            emit(Resource.error(null, e.localizedMessage))
+        }
+    }
 }

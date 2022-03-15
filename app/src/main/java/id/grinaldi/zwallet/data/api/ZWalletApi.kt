@@ -1,15 +1,14 @@
 package id.grinaldi.zwallet.data.api
 
-import id.grinaldi.zwallet.model.APIResponse
-import id.grinaldi.zwallet.model.Invoice
-import id.grinaldi.zwallet.model.User
-import id.grinaldi.zwallet.model.UserDetail
+import id.grinaldi.zwallet.model.*
 import id.grinaldi.zwallet.model.request.LoginRequest
 import id.grinaldi.zwallet.model.request.RefreshTokenRequest
+import id.grinaldi.zwallet.model.request.SetPinRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ZWalletApi {
     @POST("auth/login")
@@ -26,4 +25,13 @@ interface ZWalletApi {
 
     @POST("auth/refresh-token")
     fun refreshToken(@Body request: RefreshTokenRequest): Call<APIResponse<User>>
+
+    @GET("auth/auth/checkPIN/{PIN}")
+    suspend fun validatePIN(@Path("PIN") pin: Int): APIResponse<String>
+
+    @GET("auth/auth/checkPIN/{PIN}")
+    suspend fun setPIN(@Body request: SetPinRequest): APIResponse<String>
+
+    @GET("tranfer/contactUser")
+    suspend fun getContacts(): APIResponse<List<Contact>>
 }

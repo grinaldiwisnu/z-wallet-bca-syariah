@@ -1,0 +1,26 @@
+package id.grinaldi.zwallet.ui.auth
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import id.grinaldi.zwallet.databinding.FragmentCreatePinBinding
+
+class CreatePinFragment : Fragment() {
+    private lateinit var binding: FragmentCreatePinBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentCreatePinBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+    }
+}

@@ -28,4 +28,27 @@
     <string name="notification_image">Notification Image</string>
     <string name="text_name">Grinaldi Wisnu Tri Prasetyo</string>
     <string name="text_hello">Hello,</string>
+    <string name="text_find_receiver">Find Receiver</string>
+    <string name="back_button">Back Button</string>
+    <string name="hint_search_receiver_here">Search receiver here</string>
+    <string name="text_all_contact">All Contact</string>
+    <string name="transfer">Transfer</string>
+    <string name="top_up">Top Up</string>
+    <string name="text_transaction_history">Transaction History</string>
+    <string name="text_view_all">View All</string>
+    <string name="text_continue">Continue</string>
+    <string name="add_some_notes">Add some notes</string>
+    <string name="transfer_value">0.00</string>
+    <string name="text_contact_image">Contact Image</string>
+    <string name="text_transfer_to">Transfer to</string>
+    <string name="text_details">Details</string>
+
+    <string name="amount">Amount</string>
+    <string name="balance">Balance left</string>
+    <string name="date">Date &amp; time</string>
+    <string name="notes">Notes</string>
+    <string name="text_virtual_account_number">Virtual Account Number</string>
+    <string name="text_va">2389 081393877946</string>
+    <string name="text_topup">We provide you virtual account number for top up via nearest ATM.</string>
+    <string name="text_how_to_top_up">How to Top-Up</string>
 </resources>

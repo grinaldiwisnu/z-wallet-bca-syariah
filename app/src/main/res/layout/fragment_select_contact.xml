@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:hint="@string/hint_search_receiver_here"
+        android:autofillHints="name"
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:paddingTop="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="16dp"
+        style="@style/EditText.Input"
+        android:background="@drawable/background_grey_input"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        app:layout_constraintTop_toBottomOf="@id/include"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textAllContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="#514F5B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="@string/text_all_contact"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"/>
+
+    <TextView
+        android:id="@+id/textContactFound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="@color/darkGreyColor"
+        tools:text="17 Contact Founds"
+        app:layout_constraintTop_toBottomOf="@id/textAllContact"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/textContactFound"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:isScrollContainer="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listItem="@layout/item_contact_transfer">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerContact"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:isScrollContainer="true"
+            android:scrollbars="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_contact_transfer"/>
+
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:indeterminateTint="@color/primaryColor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

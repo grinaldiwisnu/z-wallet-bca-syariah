@@ -1,0 +1,101 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/transferUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/item_contact_transfer"
+        android:layout_marginTop="40dp"
+        android:paddingTop="20dp"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/nunito_font_medium"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="Rp120.000 Avaiable"
+        android:id="@+id/availableBalance"
+        app:layout_constraintTop_toBottomOf="@id/transferUserInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/inputTransferAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="36dp"
+        android:inputType="number"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:textColor="@color/darkGreyColor"
+        android:textColorHint="@color/darkGreyColor"
+        android:layout_marginTop="50dp"
+        android:maxLength="12"
+        android:singleLine="true"
+        android:fontFamily="@font/nunito_font_bold"
+        android:nextFocusForward="@id/inputTransferAmount"
+        android:background="@null"
+        android:hint="@string/transfer_value"
+        android:importantForAutofill="no"
+        app:layout_constraintTop_toBottomOf="@id/availableBalance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/inputTransferDesc"
+        style="@style/EditText.Input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="45dp"
+        android:autofillHints="name"
+        android:drawableStart="@drawable/ic_baseline_edit_24"
+        android:hint="@string/add_some_notes"
+        android:inputType="text"
+        android:background="@drawable/background_bottom_input_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputTransferAmount" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonContinueConfirmation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        android:paddingVertical="12dp"
+        android:background="@drawable/background_button_auth_active"
+        android:textAllCaps="false"
+        android:text="@string/text_continue"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="20dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="@font/nunito_font_medium"
+        android:layout_marginVertical="30dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
