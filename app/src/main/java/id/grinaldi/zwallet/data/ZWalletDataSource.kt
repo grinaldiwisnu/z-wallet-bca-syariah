@@ -10,8 +10,9 @@ import id.grinaldi.zwallet.model.request.LoginRequest
 import id.grinaldi.zwallet.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
+import javax.inject.Inject
 
-class ZWalletDataSource(private val apiClient: ZWalletApi) {
+class ZWalletDataSource @Inject constructor(private val apiClient: ZWalletApi) {
     fun login(email: String, password: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
         try {

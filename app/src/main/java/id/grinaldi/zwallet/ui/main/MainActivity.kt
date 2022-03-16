@@ -2,8 +2,10 @@ package id.grinaldi.zwallet.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import dagger.hilt.android.AndroidEntryPoint
 import id.grinaldi.zwallet.databinding.ActivityMainBinding
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 

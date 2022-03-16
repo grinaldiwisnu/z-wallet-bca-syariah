@@ -2,8 +2,10 @@ package id.grinaldi.zwallet.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import dagger.hilt.android.AndroidEntryPoint
 import id.grinaldi.zwallet.databinding.ActivityAuthBinding
 
+@AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
 

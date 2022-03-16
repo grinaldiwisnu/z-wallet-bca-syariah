@@ -6,22 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import id.grinaldi.zwallet.R
 import id.grinaldi.zwallet.adapter.ContactAdapter
 import id.grinaldi.zwallet.databinding.FragmentSelectContactBinding
-import id.grinaldi.zwallet.ui.ViewModelFactory
 import id.grinaldi.zwallet.utils.State
 import id.grinaldi.zwallet.widget.LoadingDialog
 import javax.net.ssl.HttpsURLConnection
 
+@AndroidEntryPoint
 class SelectContactFragment : Fragment() {
     private lateinit var binding: FragmentSelectContactBinding
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var contactAdapter: ContactAdapter
-    private lateinit var viewModel: TransferViewModel
+    private val viewModel: TransferViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +33,6 @@ class SelectContactFragment : Fragment() {
         loadingDialog = LoadingDialog(requireActivity())
         binding.include.toolbar.title = "Find Receiver"
 
-        val factory = ViewModelFactory.getInstance(requireActivity().application)
-        viewModel = ViewModelProvider(requireActivity(), factory)[TransferViewModel::class.java]
-        
         return binding.root
     }
 

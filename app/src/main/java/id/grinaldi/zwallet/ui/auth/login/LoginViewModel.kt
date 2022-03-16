@@ -1,18 +1,16 @@
 package id.grinaldi.zwallet.ui.auth.login
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import id.grinaldi.zwallet.data.ZWalletDataSource
-import id.grinaldi.zwallet.data.api.ZWalletApi
 import id.grinaldi.zwallet.model.APIResponse
 import id.grinaldi.zwallet.model.User
-import id.grinaldi.zwallet.network.NetworkConfig
 import id.grinaldi.zwallet.utils.Resource
+import javax.inject.Inject
 
-class LoginViewModel(app: Application): ViewModel() {
-    private var apiClient: ZWalletApi = NetworkConfig(app).buildApi()
-    private var dataSource = ZWalletDataSource(apiClient)
+@HiltViewModel
+class LoginViewModel @Inject constructor(private var dataSource: ZWalletDataSource): ViewModel() {
 
     fun login(email: String, password: String): LiveData<Resource<APIResponse<User>?>> {
         return dataSource.login(email, password)

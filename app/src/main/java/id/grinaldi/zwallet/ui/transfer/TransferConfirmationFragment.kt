@@ -6,13 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import dagger.hilt.android.AndroidEntryPoint
 import id.grinaldi.zwallet.R
 import id.grinaldi.zwallet.databinding.FragmentTransferConfirmationBinding
-import id.grinaldi.zwallet.ui.ViewModelFactory
 import id.grinaldi.zwallet.utils.BASE_URL
 import id.grinaldi.zwallet.utils.Helper.formatPrice
 import java.text.SimpleDateFormat
@@ -20,9 +21,10 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+@AndroidEntryPoint
 class TransferConfirmationFragment : Fragment() {
     private lateinit var binding: FragmentTransferConfirmationBinding
-    private lateinit var viewModel: TransferViewModel
+    private val viewModel: TransferViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,9 +32,6 @@ class TransferConfirmationFragment : Fragment() {
     ): View? {
         binding = FragmentTransferConfirmationBinding.inflate(layoutInflater)
         binding.include.toolbar.title = "Confirmation"
-
-        val factory = ViewModelFactory.getInstance(requireActivity().application)
-        viewModel = ViewModelProvider(requireActivity(), factory)[TransferViewModel::class.java]
 
         return binding.root
     }
