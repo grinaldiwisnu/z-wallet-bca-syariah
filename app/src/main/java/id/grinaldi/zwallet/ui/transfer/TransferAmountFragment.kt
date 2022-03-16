@@ -5,29 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import dagger.hilt.android.AndroidEntryPoint
 import id.grinaldi.zwallet.R
 import id.grinaldi.zwallet.databinding.FragmentTransferAmountBinding
 import id.grinaldi.zwallet.model.request.TransferRequest
-import id.grinaldi.zwallet.ui.ViewModelFactory
 import id.grinaldi.zwallet.utils.BASE_URL
 
+@AndroidEntryPoint
 class TransferAmountFragment : Fragment() {
     private lateinit var binding: FragmentTransferAmountBinding
-    private lateinit var viewModel: TransferViewModel
+    private val viewModel: TransferViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTransferAmountBinding.inflate(layoutInflater)
-
-        val factory = ViewModelFactory.getInstance(requireActivity().application)
-        viewModel = ViewModelProvider(requireActivity(), factory)[TransferViewModel::class.java]
 
         return binding.root
     }

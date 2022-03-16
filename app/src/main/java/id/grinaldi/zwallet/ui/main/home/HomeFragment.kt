@@ -10,14 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import id.grinaldi.zwallet.R
 import id.grinaldi.zwallet.adapter.TransactionAdapter
 import id.grinaldi.zwallet.databinding.FragmentHomeBinding
 import id.grinaldi.zwallet.ui.SplashScreenActivity
-import id.grinaldi.zwallet.ui.ViewModelFactory
 import id.grinaldi.zwallet.ui.transfer.TransferActivity
 import id.grinaldi.zwallet.utils.Helper.formatPrice
 import id.grinaldi.zwallet.utils.KEY_LOGGED_IN
@@ -26,12 +26,13 @@ import id.grinaldi.zwallet.utils.State
 import id.grinaldi.zwallet.widget.LoadingDialog
 import javax.net.ssl.HttpsURLConnection
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var transactionAdapter: TransactionAdapter
     private lateinit var binding: FragmentHomeBinding
     private lateinit var prefs: SharedPreferences
     private lateinit var loadingDialog: LoadingDialog
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +40,6 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         loadingDialog = LoadingDialog(requireActivity())
-
-        viewModel = ViewModelProvider(this, ViewModelFactory
-            .getInstance(requireActivity().application))[HomeViewModel::class.java]
 
         return binding.root
     }
